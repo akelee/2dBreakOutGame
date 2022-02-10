@@ -16,7 +16,7 @@ class Block {
 //All blocks
 
 const blocks = [
-    new Block(10,270)
+    new Block(10, 270)
 ]
 
 //Draw my block
