@@ -9,14 +9,14 @@ class Block {
         this.bottomLeft =  [xAxis, yAxis];//blocks anchor point
         this.bottomRight = [xAxis + blockWidth, yAxis];
         this.topLeft = [xAxis, yAxis + blockHeight];
-        this.topRight = [xAxis + blockWidth, yAxis + blockHeight]
+        this.topRight = [xAxis + blockWidth, yAxis + blockHeight];
     }
 }
 
 //All blocks
 
 const blocks = [
-    new Block(10, 270)
+    new Block(10, 270);
 ]
 
 //Draw my block
