@@ -5,14 +5,14 @@
 
 .grid{
     position:absolute;
-    width: 600px;
+    width: 560px;
     height:300px;
-    border: solid black 1px;
+    border: solid rgb(41, 129, 211) 5px;
   }
 
 .block {
     position:absolute;/*need this posi. to use left property*/
     width: 100px;
     height: 20px;
-    background-color: rgb(41, 41, 211);
+    background-color: rgb(41, 129, 211);
    }
