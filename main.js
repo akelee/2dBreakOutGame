@@ -2,6 +2,9 @@ const grid = document.querySelector('.grid');
 const blockWidth = 100;//based on css .block width/height
 const blockHeight = 20;//based on css .block width/height
 
+const userStart = [230, 10]
+let currentPosition = userStart
+
 //Construct block
 
 class Block {
@@ -51,4 +54,15 @@ addBlocks();
 
 const user = document.createElement('div')
 user.classList.add('user');
+user.style.left = currentPosition[0] + 'px'
+user.style.bottom = currentPosition[1] + 'px' // go into current position, get 2nd value & add px
 grid.appendChild(user)
+
+//Move user
+function moveUser(e) {
+    switch(e.key) { //listen for arrow R+L
+        case 'ArrowLeft': //take away from x-axis current position
+            currentPosition[0] -= 10 //take away 10 from value
+            user.style.left = currentPosition[0] + 'px' //reassign value
+    }
+}
