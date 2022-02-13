@@ -46,3 +46,9 @@ for (let i = 0; i < blocks.length; i++) {
         }
 }
 addBlocks();
+
+//Add user
+
+const user = document.createElement('div')
+user.classList.add('user');
+grid.appendChild(user)
