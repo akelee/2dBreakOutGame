@@ -8,6 +8,7 @@
     width: 560px;
     height:300px;
     border: solid rgb(41, 129, 211) 5px;
+    border-radius: 20px;
   }
 
 .block {
@@ -15,4 +16,12 @@
     width: 100px;
     height: 20px;
     background-color: rgb(41, 129, 211);
+    border-radius: 8px;
+   }
+.user {
+    position:absolute;/*need this posi. to use left property*/
+    width: 100px;
+    height: 20px;
+    background-color: rgb(211, 41, 41);
+    border-radius: 8px;
    }
