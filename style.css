@@ -7,7 +7,7 @@
     position:absolute;
     width: 560px;
     height:300px;
-    border: solid rgb(41, 129, 211) 5px;
+    border: solid rgb(71, 70, 70) 5px;
     border-radius: 20px;
   }
 
@@ -15,13 +15,21 @@
     position:absolute;/*need this posi. to use left property*/
     width: 100px;
     height: 20px;
-    background-color: rgb(41, 129, 211);
+    background-color:rgb(71, 70, 70);
     border-radius: 8px;
    }
 .user {
     position:absolute;/*need this posi. to use left property*/
     width: 100px;
     height: 20px;
-    background-color: rgb(211, 41, 41);
+    background-color: rgb(71, 70, 70);
     border-radius: 8px;
+   }
+
+   .ball {
+     position: absolute; /*to assign Left and Bottom values*/
+     width: 20px;
+     height: 20px;
+     border-radius: 10px;
+     background-color: rgb(212, 78, 145);
    }
