@@ -1,9 +1,17 @@
 const grid = document.querySelector('.grid');
 const blockWidth = 100;//based on css .block width/height
 const blockHeight = 20;//based on css .block width/height
+const ballDiameter = 20; //assigned in css
 const boardWidth = 560;
-const userStart = [230, 10]
-let currentPosition = userStart
+let timerId
+let xDirection = 2;
+let yDirection = 2;
+
+const userStart = [230, 10];//assign start position of user bar
+let currentPosition = userStart;
+
+const ballStart = [270,40];//assign start position of ball
+let ballCurrentPosition = ballStart;
 
 //Construct block
 
@@ -50,6 +58,13 @@ for (let i = 0; i < blocks.length; i++) {
 }
 addBlocks();
 
+//Draw my ball
+
+function drawBall() {
+    ball.style.left = ballCurrentPosition[0] + 'px';
+    ball.style.bottom = ballCurrentPosition[1] + 'px';
+}
+
 //Add user
 
 const user = document.createElement('div')
@@ -61,7 +76,7 @@ grid.appendChild(user)
 
 function drawUser() {
     user.style.left = currentPosition[0] + 'px'
-user.style.bottom = currentPosition[1] + 'px' // go into current position, get 2nd value & add px
+    user.style.bottom = currentPosition[1] + 'px' // go into current position, get 2nd value & add px
 }
 
 
@@ -85,4 +100,42 @@ function moveUser(e) {
     }
 }
 
-document.addEventListener('keydown', moveUser)
+document.addEventListener('keydown', moveUser);
+
+//Create ball
+
+const ball = document.createElement('div');
+ball.classList.add('ball');//create class of ball in JS and style it in css
+ball.style.left = ballCurrentPosition[0] + 'px';
+ball.style.bottom = ballCurrentPosition[1] + 'px';
+grid.appendChild(ball);//put child, ball, into parent, grid
+drawBall()
+
+//Move ball
+
+function moveBall() {
+    ballCurrentPosition[0] += xDirection //make it move along x-axis by 2, store value in let statement above
+    ballCurrentPosition[1] += yDirection //make it move along y-axis
+    drawBall()
+    checkForCollisions() //ever 30m/s, check for collisions
+}
+
+//Make ball change direction when it hits walls of the grid
+timerId = setInterval(moveBall, 30);
+
+// check for collisions
+function checkForCollisions() {
+    //check for wall collisions
+    if(ballCurrentPosition[0] >= (boardWidth - ballDiameter) || 
+    ballCurrentPosition[1] >= (boardHeight - ballDiameter)){//account for ball width by subtracting diameter. if smaller than means ball is off the grid 
+        changeDirection()
+    }
+}
+
+function changeDirection() {
+    if(xDirection === 2 && yDirection === 2) {//on collision
+        xDirection = -2 // - to move in opp. direction
+        return
+    }
+    // if()
+}
