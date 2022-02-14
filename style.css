@@ -1,35 +1,66 @@
-/* body { 
-    padding: 0;
-    margin: 0;
-} */
 
-.grid{
-    position:absolute;
-    width: 560px;
-    height:300px;
-    border: solid rgb(71, 70, 70) 5px;
-    border-radius: 20px;
-  }
+function drawUser() {
+    user.style.left = currentPosition[0] + 'px'
+    user.style.bottom = currentPosition[1] + 'px' // go into current position, get 2nd value & add px
+}
 
-.block {
-    position:absolute;/*need this posi. to use left property*/
-    width: 100px;
-    height: 20px;
-    background-color:rgb(71, 70, 70);
-    border-radius: 8px;
-   }
-.user {
-    position:absolute;/*need this posi. to use left property*/
-    width: 100px;
-    height: 20px;
-    background-color: rgb(71, 70, 70);
-    border-radius: 8px;
-   }
 
-   .ball {
-     position: absolute; /*to assign Left and Bottom values*/
-     width: 20px;
-     height: 20px;
-     border-radius: 10px;
-     background-color: rgb(212, 78, 145);
-   }
+//Move user
+function moveUser(e) {
+    switch(e.key) { //listen for arrow R+L
+        case 'ArrowLeft': //take away from x-axis current position
+            if(currentPosition[0] > 0) { //if statement to prevent platform from going offscreen. 0 is the left border start point
+                 currentPosition[0] -= 10 //take away 10 from value on each keydown left evemt
+                user.style.left = currentPosition[0] + 'px' //reassign value
+                 drawUser();
+            }
+            break;
+
+            case 'ArrowRight':
+                if(currentPosition[0] < boardWidth - blockWidth) {
+                    currentPosition[0] += 10;
+                    drawUser();
+                }
+                break;
+    }
+}
+
+document.addEventListener('keydown', moveUser);
+
+//Create ball
+
+const ball = document.createElement('div');
+ball.classList.add('ball');//create class of ball in JS and style it in css
+ball.style.left = ballCurrentPosition[0] + 'px';
+ball.style.bottom = ballCurrentPosition[1] + 'px';
+grid.appendChild(ball);//put child, ball, into parent, grid
+drawBall()
+
+//Move ball
+
+function moveBall() {
+    ballCurrentPosition[0] += xDirection //make it move along x-axis by 2, store value in let statement above
+    ballCurrentPosition[1] += yDirection //make it move along y-axis
+    drawBall()
+    checkForCollisions() //ever 30m/s, check for collisions
+}
+
+//Make ball change direction when it hits walls of the grid
+timerId = setInterval(moveBall, 30);
+
+// check for collisions
+function checkForCollisions() {
+    //check for wall collisions
+    if(ballCurrentPosition[0] >= (boardWidth - ballDiameter) || 
+    ballCurrentPosition[1] >= (boardHeight - ballDiameter)){//account for ball width by subtracting diameter. if smaller than means ball is off the grid 
+        changeDirection()
+    }
+}
+
+function changeDirection() {
+    if(xDirection === 2 && yDirection === 2) {//on collision
+        xDirection = -2 // - to move in opp. direction
+        return
+    }
+    // if()
+}
