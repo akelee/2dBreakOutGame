@@ -1,7 +1,7 @@
 const grid = document.querySelector('.grid');
 const blockWidth = 100;//based on css .block width/height
 const blockHeight = 20;//based on css .block width/height
-
+const boardWidth = 560;
 const userStart = [230, 10]
 let currentPosition = userStart
 
@@ -54,15 +54,35 @@ addBlocks();
 
 const user = document.createElement('div')
 user.classList.add('user');
-user.style.left = currentPosition[0] + 'px'
-user.style.bottom = currentPosition[1] + 'px' // go into current position, get 2nd value & add px
+drawUser()
 grid.appendChild(user)
+
+//Draw user
+
+function drawUser() {
+    user.style.left = currentPosition[0] + 'px'
+user.style.bottom = currentPosition[1] + 'px' // go into current position, get 2nd value & add px
+}
+
 
 //Move user
 function moveUser(e) {
     switch(e.key) { //listen for arrow R+L
         case 'ArrowLeft': //take away from x-axis current position
-            currentPosition[0] -= 10 //take away 10 from value
-            user.style.left = currentPosition[0] + 'px' //reassign value
+            if(currentPosition[0] > 0) { //if statement to prevent platform from going offscreen. 0 is the left border start point
+                 currentPosition[0] -= 10 //take away 10 from value on each keydown left evemt
+                user.style.left = currentPosition[0] + 'px' //reassign value
+                 drawUser();
+            }
+            break;
+
+            case 'ArrowRight':
+                if(currentPosition[0] < boardWidth - blockWidth) {
+                    currentPosition[0] += 10;
+                    drawUser();
+                }
+                break;
     }
 }
+
+document.addEventListener('keydown', moveUser)
