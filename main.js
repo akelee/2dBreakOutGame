@@ -1,4 +1,5 @@
 const grid = document.querySelector('.grid');
+const scoreDisplay = document.querySelector('#score'); 
 const blockWidth = 100;//based on css .block width/height
 const blockHeight = 20;//based on css .block width/height
 const ballDiameter = 20; //assigned in css
@@ -97,7 +98,7 @@ function moveUser(e) {
                     currentPosition[0] += 10;
                     drawUser();
                 }
-                break;
+            break;
     }
 }
 
@@ -128,8 +129,18 @@ timerId = setInterval(moveBall, 30);
 function checkForCollisions() {
     //check for wall collisions
     if(ballCurrentPosition[0] >= (boardWidth - ballDiameter) || 
-    ballCurrentPosition[1] >= (boardHeight - ballDiameter)){//account for ball width by subtracting diameter. if smaller than means ball is off the grid 
+    ballCurrentPosition[1] >= (boardHeight - ballDiameter) ||
+    ballCurrentPosition[0] <= 0 
+    ) {//account for ball width by subtracting diameter. if smaller than means ball is off the grid 
         changeDirection()
+    }
+
+//check for game over
+    
+ if(ballCurrentPosition[1] <= 0) //[1] refers to y axis 
+    { clearInterval(timerId)
+       scoreDisplay.innerHTML = 'You Lose!'
+       document.removeEventListener('keydown', moveUser)
     }
 }
 
