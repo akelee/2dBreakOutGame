@@ -3,6 +3,7 @@ const blockWidth = 100;//based on css .block width/height
 const blockHeight = 20;//based on css .block width/height
 const ballDiameter = 20; //assigned in css
 const boardWidth = 560;
+const boardHeight = 300; //set in css
 let timerId
 let xDirection = 2;
 let yDirection = 2;
@@ -134,8 +135,22 @@ function checkForCollisions() {
 
 function changeDirection() {
     if(xDirection === 2 && yDirection === 2) {//on collision
-        xDirection = -2 // - to move in opp. direction
+        yDirection = -2 // - to move in opp. direction
         return
     }
-    // if()
+
+    if(xDirection === 2 && yDirection === -2) {
+    xDirection = -2;
+    return
+    }
+
+    if (xDirection === -2 && yDirection === 2){
+    yDirection = 2;
+    return;
+    }
+
+    if (xDirection === -2 && yDirection === 2) {
+    xDirection = 2
+    }
 }
+
