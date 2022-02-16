@@ -1,1 +1,2 @@
-# breakOutGame
+# 2dBreakOutGame
+Made with HTML, CSS, JavaScript
