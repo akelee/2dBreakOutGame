@@ -6,7 +6,7 @@ const ballDiameter = 20; //assigned in css
 const boardWidth = 560;
 const boardHeight = 300; //set in css
 let timerId
-let xDirection = 2;
+let xDirection = -2;
 let yDirection = 2;
 
 const userStart = [230, 10];//assign start position of user bar
@@ -81,7 +81,6 @@ function drawUser() {
     user.style.bottom = currentPosition[1] + 'px' // go into current position, get 2nd value & add px
 }
 
-
 //Move user
 function moveUser(e) {
     switch(e.key) { //listen for arrow R+L
@@ -127,6 +126,22 @@ timerId = setInterval(moveBall, 30);
 
 // check for collisions
 function checkForCollisions() {
+    //check for block collisions
+    for (let i = 0; i < blocks.length; i++){
+        if
+        (
+          (ballCurrentPosition[0] > blocks[i].bottomLeft[0] && ballCurrentPosition[0] < blocks[i].bottomRight[0]) &&
+          ((ballCurrentPosition[1] + ballDiameter) > blocks[i].bottomLeft[1] && ballCurrentPosition[1] < blocks[i].topLeft[1]) 
+        )//if ball's x axis is larger than blocks, check bottom left's x-axis 
+        {
+            const allBlocks = Array.from(document.querySelectorAll('.block'))
+            allBlocks[i].classList.remove('block') //get all blocks, go to wherever [i] is as we are looping. Remove the block we hit
+            blocks.splice(i, 1); //removing class is different from removing from array we have it in
+            changeDirection(); //after removing a block
+        }
+    }
+
+
     //check for wall collisions
     if(ballCurrentPosition[0] >= (boardWidth - ballDiameter) || 
     ballCurrentPosition[1] >= (boardHeight - ballDiameter) ||
@@ -136,8 +151,8 @@ function checkForCollisions() {
     }
 
 //check for game over
-    
- if(ballCurrentPosition[1] <= 0) //[1] refers to y axis 
+
+if(ballCurrentPosition[1] <= 0) //[1] refers to y axis 
     { clearInterval(timerId)
        scoreDisplay.innerHTML = 'You Lose!'
        document.removeEventListener('keydown', moveUser)
@@ -155,7 +170,7 @@ function changeDirection() {
     return
     }
 
-    if (xDirection === -2 && yDirection === 2){
+    if (xDirection === -2 && yDirection === -2){
     yDirection = 2;
     return;
     }
@@ -164,4 +179,7 @@ function changeDirection() {
     xDirection = 2
     }
 }
+
+
+
 
